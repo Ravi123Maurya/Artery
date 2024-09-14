@@ -1,6 +1,6 @@
 # Virtual Art Gallery App
 
-A virtual art gallery app designed for artists and art enthusiasts to showcase, explore, and interact with various types of art, including digital, <br>and video formats. The app creates a social network-like experience where artists can share their work, and users can discover, engage, and purchase artworks.
+A virtual art gallery app designed for artists and art enthusiasts to showcase, explore, and interact with various types of art, including digital, and video formats. The app creates a social network-like experience where artists can share their work, and users can discover, engage, and purchase artworks.
 
 ## **Features**
 
