@@ -1,5 +1,6 @@
 package com.ravimaurya.artery.presentation
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
@@ -17,7 +18,7 @@ import com.ravimaurya.artery.presentation.utils.Screens
 @Composable
 fun NavGraphController(modifier: Modifier = Modifier, navController: NavHostController) {
     NavHost(
-        modifier = modifier,
+        modifier = modifier.fillMaxSize(),
         navController = navController,
         startDestination = Screens.Home.route
     ) {
