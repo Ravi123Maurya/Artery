@@ -49,7 +49,9 @@ fun HomeScreen(modifier: Modifier = Modifier) {
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
+            items(4){
+                ArtItem()
+            }
         }
     }
 }
@@ -68,7 +70,7 @@ fun ArtItem(){
 
             Image(
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(16.dp)),
+                modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(8.dp)),
                 painter = painterResource(R.drawable.test), contentDescription =  "")
             Row(
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
