@@ -1,6 +1,5 @@
 package com.ravimaurya.artery.presentation.utils
 
-import android.content.res.Resources
 import com.ravimaurya.artery.R
 
 sealed class Screens(val route: String){

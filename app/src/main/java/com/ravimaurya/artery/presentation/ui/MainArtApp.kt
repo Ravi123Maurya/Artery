@@ -4,6 +4,7 @@ import androidx.compose.foundation.gestures.ScrollScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.Add
@@ -21,6 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -34,27 +36,35 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.ravimaurya.artery.R
 import com.ravimaurya.artery.presentation.NavGraphController
+import com.ravimaurya.artery.presentation.utils.BottomBarIcon
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainArtApp(navController: NavHostController) {
+
+    val scrollState = rememberLazyListState()
+    val topAppBarState = rememberTopAppBarState()
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(topAppBarState)
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            ArtTopAppBar(title = stringResource(R.string.app_name))
+            ArtTopAppBar(title = stringResource(R.string.app_name), scrollBehavior = scrollBehavior)
         },
         bottomBar = {
             ArtBottomAppBar(navController = navController)
         }
     ) { paddingValues ->
-        NavGraphController(modifier = Modifier.padding(paddingValues),navController = navController)
+        NavGraphController(modifier = Modifier.padding(paddingValues),navController = navController,scrollState= scrollState)
     }
 }
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ArtTopAppBar(title: String) {
+fun ArtTopAppBar(title: String, scrollBehavior: TopAppBarScrollBehavior) {
     TopAppBar(
+        scrollBehavior = scrollBehavior,
         title = {
             Text(title, fontSize = 18.sp, color = Color.Black)
         }
@@ -85,10 +95,9 @@ fun ArtBottomAppBar( navController: NavHostController) {
                         }
                     },
                     icon = {
-                        Icon(
-                            it.icon,
+                        BottomBarIcon(
+                            imageVector = it.icon,
                             contentDescription = null,
-                            modifier = Modifier.size(20.dp)
                         )
                     }
                 )

@@ -1,6 +1,7 @@
 package com.ravimaurya.artery.presentation
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
@@ -16,14 +17,14 @@ import com.ravimaurya.artery.presentation.utils.Screens
 
 
 @Composable
-fun NavGraphController(modifier: Modifier = Modifier, navController: NavHostController) {
+fun NavGraphController(modifier: Modifier = Modifier, navController: NavHostController, scrollState: LazyListState) {
     NavHost(
         modifier = modifier.fillMaxSize(),
         navController = navController,
         startDestination = Screens.Home.route
     ) {
         composable(Screens.Home.route){
-            HomeScreen()
+            HomeScreen(scrollState = scrollState)
         }
         composable(Screens.ArtFeed.route){
             ArtFeedScreen()

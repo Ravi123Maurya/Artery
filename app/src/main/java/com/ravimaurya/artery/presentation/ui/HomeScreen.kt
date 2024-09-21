@@ -10,9 +10,14 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.pager.PageSize
+import androidx.compose.foundation.pager.VerticalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -35,28 +40,34 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.firebase.components.Lazy
 import com.ravimaurya.artery.R
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+fun HomeScreen(modifier: Modifier = Modifier, scrollState: LazyListState) {
+
+    val pageState = rememberPagerState(initialPage = 0, pageCount = {10})
+    VerticalPager(
+        state = pageState ,
+        pageSize = PageSize.Fill,
+        pageSpacing = 0.dp,
+        modifier = Modifier.fillMaxSize()
     ) {
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            items(4){
-                ArtItem()
-            }
-        }
+        ArtItem()
     }
+//        LazyColumn(
+//            state = scrollState,
+//            modifier = Modifier.fillMaxSize(),
+//            verticalArrangement = Arrangement.Top,
+//            horizontalAlignment = Alignment.CenterHorizontally
+//        ) {
+//            items(4){
+//                ArtItem()
+//            }
+//        }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+//@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ArtItem(){
 
@@ -64,13 +75,13 @@ fun ArtItem(){
         modifier = Modifier.fillMaxWidth().padding(8.dp)
     ){
         Box(
-            modifier = Modifier.fillMaxWidth().fillMaxHeight(.5f),
+            modifier = Modifier.fillMaxWidth().height(400.dp),
             contentAlignment = Alignment.TopStart
         ) {
 
             Image(
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(8.dp)),
+                modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(5.dp)),
                 painter = painterResource(R.drawable.test), contentDescription =  "")
             Row(
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
@@ -95,7 +106,7 @@ fun ArtItem(){
             }
         }
         ArtComplements()
-        Text(text = "This is art description...", Modifier.padding(vertical = 5.dp))
+        Text(text = "This is art description, that tells details and background of art in brief and concise way...", Modifier.padding(vertical = 5.dp))
     }
 
 
@@ -106,7 +117,7 @@ fun ArtItem(){
 @Composable
 fun ArtComplements(){
     Row (
-        modifier = Modifier.fillMaxWidth().padding(vertical = 5.dp),
+        modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceAround
     ){
         IconButton(onClick = {}) {

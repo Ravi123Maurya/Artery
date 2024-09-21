@@ -1,6 +1,5 @@
 package com.ravimaurya.artery.presentation.ui
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -13,58 +12,59 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.pager.VerticalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CommentBank
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Send
+import androidx.compose.material.icons.outlined.CommentBank
 import androidx.compose.material.icons.outlined.ThumbDown
 import androidx.compose.material.icons.outlined.ThumbUp
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.ClipEntry
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ravimaurya.artery.R
+import com.ravimaurya.artery.presentation.utils.ComplementsIcon
+import com.ravimaurya.artery.presentation.utils.ComplementsText
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 //@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ArtFeedScreen(modifier: Modifier = Modifier) {
-    
+
+    val pagerState = rememberPagerState(initialPage = 1, pageCount = { 10 })
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
         ) {
 
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
+            VerticalPager(
+                state = pagerState
             ) {
-                items(4){
-                    ArtFeedItem()
-                }
+                ArtFeedItem()
             }
+//            LazyColumn(
+//                modifier = Modifier
+//                    .fillMaxSize()
+//            ) {
+//                items(4){
+//                    ArtFeedItem()
+//                }
+//            }
         }
 
 
@@ -90,8 +90,8 @@ fun ArtFeedItem(){
         Row(
             Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(.4f)
-                .padding(8.dp),
+                .fillMaxHeight(.6f)
+                .padding(10.dp),
             verticalAlignment = Alignment.Bottom,
             horizontalArrangement = Arrangement.SpaceBetween
         ){
@@ -163,36 +163,33 @@ fun ArtFeedComplements(){
                    horizontalAlignment = Alignment.CenterHorizontally
                ) {
 
-               Icon(Icons.Outlined.ThumbUp, contentDescription = "")
+                   ComplementsIcon(imageVector = Icons.Outlined.ThumbUp, contentDescription = "Like")
                    ComplementsText("123")
                }
                Column (
                    horizontalAlignment = Alignment.CenterHorizontally
                ){
 
-               Icon(Icons.Outlined.ThumbDown, contentDescription = "")
+                   ComplementsIcon(imageVector = Icons.Outlined.ThumbDown, contentDescription = "Dislike")
                    ComplementsText("Dislike")
                }
                Column(
                    horizontalAlignment = Alignment.CenterHorizontally
                ) {
 
-               Icon(Icons.Filled.CommentBank, contentDescription = "")
+                   ComplementsIcon(imageVector = Icons.Outlined.CommentBank, contentDescription = "Comments")
                    ComplementsText("23")
                }
                Column (
                    horizontalAlignment = Alignment.CenterHorizontally
                ){
-               Icon(Icons.Default.Send, contentDescription = "")
-                   ComplementsText("Share")
+                   ComplementsIcon(imageVector = Icons.Default.Send, contentDescription = "Share")
+                   ComplementsText(text = "Share")
                }
            }
 
 }
-@Composable
-fun ComplementsText(text: String){
-    Text(text = text, fontSize = 12.sp)
-}
+
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
